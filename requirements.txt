@@ -1,0 +1,9 @@
+numpy
+sklearn
+matplotlib
+seaborn
+pandas
+umap-learn
+tqdm
+plotly
+streamlit
