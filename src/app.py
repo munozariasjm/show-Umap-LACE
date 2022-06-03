@@ -31,8 +31,7 @@ def load_data(sample_size=10_000, seed=0):
 
 def get_parameters(st):
     # st.subheader('Choose distance metric')
-    st.subheader('Metric for mapping')
-    umap__metric = st.sidebar.selectbox('This parameter controls how distance is computed in the ambient space of the input data:',
+    umap__metric = st.sidebar.selectbox('Metric for mapping: This parameter controls how distance is computed in the ambient space of the input data:',
                                         ['euclidean',
                                          'manhattan',
                                          'chebyshev',
@@ -45,15 +44,13 @@ def get_parameters(st):
                                          # 'seuclidean'
                                          ])
 
-    st.subheader('Number of Neighbors for the Graph')
     umap__n_neighbors = st.sidebar.slider(
-        label='This parameter controls how UMAP balances local versus global structure in the embeddings:',
+        label='Number of Neighbors for the Graph: This parameter controls how UMAP balances local versus global structure in the embeddings:',
         min_value=2,
         max_value=200,
         value=5,
         step=1)
-    st.subheader('Threshold Distance')
-    umap__min_dist = st.sidebar.slider('The min_dist parameter controls how tightly UMAP is allowed to pack points together:',
+    umap__min_dist = st.sidebar.slider('Threshold Distance: The min_dist parameter controls how tightly UMAP is allowed to pack points together:',
                                        min_value=.1,
                                        max_value=1.0,
                                        value=.5,
@@ -79,4 +76,4 @@ fig = draw_umap(
 if fig != None:
     st.plotly_chart(fig)
 
-st.write(fig)
+#st.write(fig)
