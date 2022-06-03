@@ -1,3 +1,4 @@
+from turtle import color
 import numpy as np
 from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -17,6 +18,7 @@ import plotly.express as px
 def transformed_df(df):
     scaler = StandardScaler()
     X_cols = df.drop(columns=["label"]).columns
+    print(X_cols[:10])
     scaled_df = df.copy()
     scaled_df[X_cols] = scaler.fit_transform(df[X_cols].values)
     return scaled_df
@@ -43,15 +45,16 @@ def draw_umap(df,
         ax.scatter(u[:,0], range(len(u)), c=labels)
     if n_components == 2:
         fig, ax = plt.subplots()
-        sns.scatterplot(x=u[:,0], y=u[:,1], hue=labels, ax=ax, s=5)
+        plot = sns.scatterplot(x=u[:,0], y=u[:,1], hue=labels, ax=ax, s=5)
+        return plot
     if n_components == 3:
         # ax = fig.add_subplot(111, projection='3d')
         # ax.scatter(u[:,0], u[:,1], u[:,2], c=labels, s=5)
         foo = pd.DataFrame({"x": u[:,0], "y": u[:,1], "z": u[:,2], "label": labels})
-        fig = px.scatter_3d(foo, x='x', y='y', z='z',
-                            marker=dict(color="label",
-                            showscale=False))
+        fig = px.scatter_3d(foo, x='x', y='y', z='z',color=labels,
+                             labels=labels, symbol=labels,)
+        fig.update_coloraxes(showscale=False)
         fig.update_traces(marker_size=1)
-        fig.show()
+        return fig
     
     
